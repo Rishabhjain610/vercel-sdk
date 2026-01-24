@@ -15,6 +15,7 @@ export async function POST(request: Request) {
   try {
     const result = streamText({
       model: ollama("qwen3-coder:480b-cloud"),
+      
       prompt: prompt,
     });
 

@@ -10,10 +10,11 @@ export async function POST(request: Request) {
   try {
     const result =  streamText({
       model: ollama('qwen3-coder:480b-cloud'),
-      messages: convertToModelMessages(messages),
+      
+      messages: await convertToModelMessages(messages),
     });
 
-    return result.toUIMessageStream();
+    return result.toUIMessageStreamResponse();
   } catch (err: any) {
     console.error('/api/chat error:', err?.stack ?? err);
     return NextResponse.json({ error: String(err?.message ?? err) }, { status: 500 });

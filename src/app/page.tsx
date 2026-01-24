@@ -1,4 +1,4 @@
-// ...existing code...
+
 "use client";
 import React, { useState } from "react";
 import { useCompletion } from "@ai-sdk/react";
