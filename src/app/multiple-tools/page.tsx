@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import type { ChatMessage } from "../api/tools/route";
+import type { ChatMessage } from "../api/multiple-tools/route";
 const Page = () => {
   const [input, setInput] = useState("");
 
@@ -54,13 +54,65 @@ const Page = () => {
                         {part.text}
                       </div>
                     );
+
+                  case "tool-getLocation":
+                    switch (part.state) {
+                      case "input-streaming":
+                        return (
+                          <div key={`${msg.id}-getLocation-${pIndex}`}>
+                            <div>Receiving request</div>
+                            <pre className="text-xs text-blue-200 mt-1">
+                              {JSON.stringify(part.input, null, 2)}
+                            </pre>
+                          </div>
+                        );
+                      case "input-available":
+                        return (
+                          <div
+                            key={`${msg.id}-getLocation-${pIndex}`}
+                            className="bg-zinc-800/50 border border-zinc-700 p-2 rounded"
+                          >
+                            <div className="text-sm text-zinc-400">
+                              Location request for IP:{" "}
+                              <strong>
+                                {part.input?.name ?? JSON.stringify(part.input)}
+                              </strong>
+                            </div>
+                          </div>
+                        );
+                      case "output-available":
+                        return (
+                          <div
+                            key={`${msg.id}-getLocation-${pIndex}`}
+                            className="bg-zinc-800/50 border border-zinc-700 p-2 rounded mt-1"
+                          >
+                            <div className="text-sm text-zinc-400">
+                              Location response:
+                            </div>
+                            <div className="mt-1">{part.output}</div>
+                          </div>
+                        );
+                      case "output-error":
+                        return (
+                          <div
+                            key={`${msg.id}-getLocation-${pIndex}`}
+                            className="bg-red-800/50 border border-red-700 p-2 rounded mt-1"
+                          >
+                            <div className="text-sm text-red-400">
+                              Error fetching location:
+                            </div>
+                            <div className="mt-1">{part.errorText}</div>
+                          </div>
+                        );
+                    }
+
                   case "tool-getWeather":
                     switch (part.state) {
                       case "input-streaming":
                         return (
                           <div key={`${msg.id}-getWeather-${pIndex}`}>
                             <div>Receiving request</div>
-                            <pre className="text-xs text-zinc-600 mt-1">
+                            <pre className="text-xs text-blue-200 mt-1">
                               {JSON.stringify(part.input, null, 2)}
                             </pre>
                           </div>
