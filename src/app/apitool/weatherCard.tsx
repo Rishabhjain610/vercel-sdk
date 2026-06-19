@@ -1,7 +1,7 @@
 // ...existing code...
 import React, { FC } from 'react'
 
-interface WeatherData{
+export interface WeatherData{
   location:{
     name:string;
     region:string;

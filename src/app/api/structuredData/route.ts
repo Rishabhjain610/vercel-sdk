@@ -5,7 +5,7 @@ const ollama = createOllama({ baseURL: "http://127.0.0.1:11434" });
 export async function POST(request: Request) {
   try {
     const { dishName } = await request.json();
-    const result = await streamText({
+    const result = await streamObject({
       model: ollama("qwen3-coder:480b-cloud"),
       prompt: `Provide a detailed recipe for making ${dishName}. Include ingredients and step-by-step instructions in JSON format.`,
       schema: receipeSchema,

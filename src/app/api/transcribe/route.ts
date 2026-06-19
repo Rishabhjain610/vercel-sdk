@@ -16,3 +16,7 @@
 //   })
 
 // }
+
+export async function POST(request: Request) {
+  return new Response("Placeholder transcribe route handler", { status: 501 });
+}

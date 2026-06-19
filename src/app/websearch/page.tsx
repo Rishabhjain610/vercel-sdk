@@ -54,12 +54,12 @@ const Page = () => {
                         {part.text}
                       </div>
                     );
-                  case "tool-getSearch":
+                  case "tool-tavilySearch":
                     switch (part.state) {
                       case "input-available":
                         return (
                           <div
-                            key={`${msg.id}-getSearch-${pIndex}`}
+                            key={`${msg.id}-tavilySearch-${pIndex}`}
                             className="bg-zinc-800/50 border border-zinc-700 p-2 rounded"
                           >
                             <div className="text-sm text-zinc-400">
@@ -70,19 +70,23 @@ const Page = () => {
                       case "output-available":
                         return (
                           <div
-                            key={`${msg.id}-getSearch-${pIndex}`}
+                            key={`${msg.id}-tavilySearch-${pIndex}`}
                             className="bg-zinc-800/50 border border-zinc-700 p-2 rounded mt-1"
                           >
                             <div className="text-sm text-zinc-400">
                               Search results:
                             </div>
-                            <div className="mt-1">{part.output}</div>
+                            <pre className="mt-1 text-xs whitespace-pre-wrap font-mono">
+                              {typeof part.output === "string"
+                                ? part.output
+                                : JSON.stringify(part.output, null, 2)}
+                            </pre>
                           </div>
                         );
                       case "output-error":
                         return (
                           <div
-                            key={`${msg.id}-getSearch-${pIndex}`}
+                            key={`${msg.id}-tavilySearch-${pIndex}`}
                             className="bg-red-800/50 border border-red-700 p-2 rounded mt-1"
                           >
                             <div className="text-sm text-red-400">
